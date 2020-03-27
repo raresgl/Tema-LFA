@@ -1,6 +1,8 @@
 def testare_NFA(test, i, stare):
     if i == len(test):
-        return stare in final
+        if stare in final:
+            return True
+        return False
     c = test[i]
     dict_verificare = dict_tranzitii.get(stare)
     if dict_verificare:
@@ -29,16 +31,20 @@ with  open("citire.txt", "r") as f:
     #implementez un nested dictionary in care voi pune tuplurile din citire
     for i in range(l):
         c1, c2, c3 = f.readline().split()
+        c1 = int(c1)
+        c3 = int(c3)
         if dict_tranzitii.get(c1):
             c_urm = dict_tranzitii[c1].get(c2)
             if c_urm:
-                list(dict_tranzitii[c1][c2]).append(c3) # imi da eroare daca nu pun list in fata
+                dict_tranzitii[c1][c2].append(c3) # imi da eroare daca nu pun list in fata
+
 
             else:
                 dict_tranzitii[c1][c2] = [c3]
+                print(dict_tranzitii)
 
         else:
-            dict_tranzitii.update({c1 : {c2 : c3}})
+            dict_tranzitii.update({c1 : {c2 : [c3]}})
 
 
     test = f.readline()
